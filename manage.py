@@ -3,10 +3,13 @@
 import os
 import sys
 
+import django.conf
+
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'case_master.settings')
+    # 从环境变量获取 PROJECT_ENV 读取 config.django 目录下对应的配置文件，默认读取 dev 环境
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', f'config.django.{os.environ.get("PROJECT_ENV", default="dev")}')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
