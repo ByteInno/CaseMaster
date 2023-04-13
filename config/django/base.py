@@ -3,7 +3,7 @@
 # @Author: zero
 # @File name: base.py
 # @Create time: 2023/4/10 23:08
-import os.path
+import os
 
 from config.env import env, BASE_DIR
 
@@ -22,6 +22,14 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+LOCAL_APPS = [
+    'case_master.users.apps.UsersConfig'
+]
+
+THIRD_PARTY_APPS = [
+    'rest_framework',
+]
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -29,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    *LOCAL_APPS,
+    *THIRD_PARTY_APPS
 ]
 
 MIDDLEWARE = [
