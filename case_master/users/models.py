@@ -1,10 +1,10 @@
 from django.db import models
-from django.contrib.auth.models import BaseUserManager as BUM, PermissionsMixin
+from django.contrib.auth.models import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser
 
 
 # Create your models here.
-class BaseUserManager(BUM):
+class UserManager(BaseUserManager):
 
     def create_user(self, email, is_active=True, is_admin=True, password=None):
         if not email:
@@ -26,7 +26,7 @@ class BaseUserManager(BUM):
         return user
 
 
-class BaseUser(BaseUserManager, AbstractBaseUser, PermissionsMixin):
+class BaseUser(AbstractBaseUser):
     email = models.EmailField(
         verbose_name='邮件地址',
         max_length=255,
@@ -34,7 +34,7 @@ class BaseUser(BaseUserManager, AbstractBaseUser, PermissionsMixin):
     )
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=True)
-    object = BaseUserManager()
+    object = UserManager()
     USERNAME_FIELD = "email"
 
     def __str__(self):
